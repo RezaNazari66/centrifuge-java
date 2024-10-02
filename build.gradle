@@ -11,6 +11,11 @@ buildscript {
     }
 }
 
+plugins {
+    id 'maven-publish'
+    id 'java' // Apply the Java plugin for a Java library
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -30,4 +35,13 @@ subprojects {
     }
 }
 
-apply from: './publish-setup.gradle'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java // Use the Java component instead of Android's release component
+            groupId = 'com.github.RezaNazari66' // Replace with your GitHub username
+            artifactId = 'centrifuge'
+            version = '1.0.0' // Specify the desired version
+        }
+    }
+}
